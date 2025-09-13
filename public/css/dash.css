@@ -1,0 +1,142 @@
+
+  :root{
+    --brand:#5b7cfa;           /* biru */
+    --brand-2:#7ed7c1;         /* hijau */
+    --sidebar-radius: 16px;
+    --glass-light: rgba(255,255,255,.85);
+    --glass-dark: rgba(26,30,44,.75);
+  }
+
+  /* ===== Container & glass look ===== */
+  .app-sidebar.modern-sidebar{
+    border-radius: var(--sidebar-radius);
+    margin: 12px;
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 12px 30px rgba(35,42,70,.15);
+    overflow: hidden;
+    background: var(--glass-light);
+    backdrop-filter: saturate(1.2) blur(6px);
+  }
+  .app-sidebar.modern-sidebar[data-bs-theme="dark"]{
+    background: var(--glass-dark);
+    border-color: rgba(255,255,255,.06);
+  }
+
+  /* ===== Brand area dengan gradien ===== */
+  .modern-sidebar .sidebar-brand{
+    padding: 14px 14px 12px;
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    border-bottom: 1px solid rgba(255,255,255,.2);
+  }
+  .modern-sidebar .brand-link{
+    display:flex; align-items:center; gap:.65rem; color:#fff;
+    text-decoration:none;
+  }
+  .modern-sidebar .brand-image{
+    width: 34px; height: 34px; object-fit: contain;
+    border-radius: 10px; background: rgba(255,255,255,.15);
+    box-shadow: 0 6px 16px rgba(0,0,0,.15);
+  }
+  .modern-sidebar .brand-text{
+    font-weight: 800; letter-spacing:.2px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.12);
+  }
+
+  /* ===== Wrapper & scrollbar spacing ===== */
+  .modern-sidebar .sidebar-wrapper{
+    padding: 10px;
+  }
+
+  /* ===== Item dasar ===== */
+  .modern-sidebar .sidebar-menu .nav-link,
+  .modern-sidebar .sidebar-menu .nav-link > p{
+    font-weight: 600;
+  }
+  .modern-sidebar .sidebar-menu .nav-link{
+    display:flex; align-items:center; gap:.55rem;
+    padding: .55rem .7rem;
+    margin: 4px 6px;
+    border-radius: 12px;
+    color: rgba(20,25,49,.85);
+    transition: transform .12s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease;
+  }
+  [data-bs-theme="dark"] .modern-sidebar .sidebar-menu .nav-link{
+    color: rgba(235,240,255,.85);
+  }
+
+  .modern-sidebar .sidebar-menu .nav-link i.bi{
+    font-size:1.05rem; opacity:.9;
+  }
+
+  /* Hover */
+  .modern-sidebar .sidebar-menu .nav-link:hover{
+    background: rgba(91,124,250,.08);
+    transform: translateX(2px);
+  }
+  [data-bs-theme="dark"] .modern-sidebar .sidebar-menu .nav-link:hover{
+    background: rgba(255,255,255,.08);
+  }
+
+  /* Active = pill gradien */
+  .modern-sidebar .sidebar-menu .nav-link.active{
+    background: linear-gradient(90deg, rgba(91,124,250,.95), rgba(126,215,193,.95));
+    color:#fff !important;
+    box-shadow: 0 8px 18px rgba(91,124,250,.25);
+  }
+  .modern-sidebar .sidebar-menu .nav-link.active i.bi{ opacity: 1; color:#fff; }
+
+  /* ===== Treeview ===== */
+  .modern-sidebar .nav-treeview{
+    margin: 6px 0 8px 0;
+    border-left: 2px solid rgba(91,124,250,.25);
+    padding-left: .35rem;
+  }
+  [data-bs-theme="dark"] .modern-sidebar .nav-treeview{
+    border-left-color: rgba(255,255,255,.15);
+  }
+  .modern-sidebar .nav-treeview .nav-link{
+    margin: 2px 6px 2px 10px;
+    padding: .5rem .7rem;
+    border-radius: 10px;
+    font-weight: 600;
+    opacity: .95;
+  }
+  .modern-sidebar .nav-treeview .nav-link:hover{
+    background: rgba(91,124,250,.08);
+  }
+  .modern-sidebar .nav-treeview .nav-link.active{
+    background: rgba(91,124,250,.18);
+    color: #1f2a55;
+  }
+  [data-bs-theme="dark"] .modern-sidebar .nav-treeview .nav-link.active{
+    color:#fff; background: rgba(255,255,255,.12);
+  }
+
+  /* ===== Chevron animasi & alignment ===== */
+  .modern-sidebar .nav-arrow{
+    margin-left: auto;
+    transition: transform .18s ease, opacity .15s ease;
+    opacity: .6;
+  }
+  .modern-sidebar .menu-open > .nav-link .nav-arrow{
+    transform: rotate(90deg);
+    opacity: 1;
+  }
+
+  /* ===== Divider halus antar grup (opsional) ===== */
+  .modern-sidebar .sidebar-menu .nav-item + .nav-item{
+    /* garis halus di antara grup */
+  }
+
+  /* ===== Compact di layar kecil ===== */
+  @media (max-width: 991.98px){
+    .app-sidebar.modern-sidebar{ margin: 8px; border-radius: 14px; }
+    .modern-sidebar .sidebar-wrapper{ padding: 8px; }
+  }
+.inventory-surface{
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(126,215,193,.35), transparent 60%),
+    radial-gradient(1000px 500px at 90% 20%, rgba(91,124,250,.25), transparent 60%),
+    linear-gradient(#f6f7fb,#eef1f9);
+}
