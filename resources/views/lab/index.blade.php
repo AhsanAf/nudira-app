@@ -24,34 +24,38 @@
           --c1:#5fa8ff; --c2:#64d1dc; --c3:#72e0b6;
           --panel:#fff; --panel2:#f7f9ff;
           --radius:.9rem; --shadow:0 10px 26px rgba(2,6,23,.08);
-          --chart-col: 380px;   /* lebar kolom kiri untuk DONUT */
-          --chart-max: 360px;   /* ukuran maksimum kanvas donut */
+          --chart-col: 380px;   /* kolom donut saat desktop */
+          --chart-max: 360px;   /* batas kartu donut saat desktop */
           --fs-s: .875rem;      /* 14px */
           --fs-xs: .8rem;       /* 13px */
         }
+        /* Samakan “napas” dengan header + cegah overflow */
         .page-compact{ max-width: 1180px; }
+        .lab-scope, .page-compact { width:100%; max-width:100%; }
+        .lab-scope * { box-sizing:border-box; min-width:0; } /* anti dorong lebar */
+
         .app-section-header{
           background: linear-gradient(90deg, #5fa8ff 0%, #64d1dc 50%, #72e0b6 100%);
           color:#fff; border-radius: 1.5rem;
         }
-        .cardx{ background:var(--panel); border:0; border-radius:var(--radius); box-shadow:var(--shadow); }
-        .soft{ background:var(--panel2); border-radius:.6rem; padding:.5rem .7rem; font-weight:700; color:#374151; font-size:var(--fs-s) }
+        .cardx{ background:var(--panel); border:0; border-radius:var(--radius); box-shadow:var(--shadow); width:100%; }
+        .soft{ background:var(--panel2); border-radius:.6rem; padding:.5rem .7rem; font-weight:700; color:#374151; font-size:var(--fs-s); width:100%; }
 
         /* GRID:
            | input input |
            | chart table | */
         .grid-lab{
-          display:grid; gap:1rem;
+          display:grid; gap:1rem; align-items:start;
           grid-template-columns: var(--chart-col) 1fr;
           grid-template-rows: auto auto;
           grid-template-areas:
             "input input"
             "chart table";
-          align-items:start;
+          width:100%;
         }
-        .area-input { grid-area: input; }
-        .area-chart { grid-area: chart; }
-        .area-table { grid-area: table; }
+        .area-input { grid-area: input; min-width:0; }
+        .area-chart { grid-area: chart; min-width:0; }
+        .area-table { grid-area: table; min-width:0; }
         @media (max-width: 991.98px){
           .grid-lab{
             grid-template-columns: 1fr;
@@ -62,27 +66,35 @@
 
         .form-label{ font-size:var(--fs-xs); margin-bottom:.25rem }
         .form-text{ font-size:var(--fs-xs) }
-        .form-control{ padding:.38rem .55rem; font-size:var(--fs-s) }
+        .form-control{ padding:.38rem .55rem; font-size:var(--fs-s); min-width:0; }
         .btn{ font-size:var(--fs-s) }
 
         /* kiri (field) – kanan (hasil) */
-        .split{ display:grid; gap:.8rem; grid-template-columns: minmax(0, 320px) 1fr; }
+        .split{ display:grid; gap:.8rem; grid-template-columns: minmax(0, 320px) 1fr; width:100%; }
         @media (max-width:1199.98px){ .split{ grid-template-columns:1fr; } }
 
         .result-card{ border:1px solid #eef2ff; border-radius:.7rem; padding:.6rem .7rem; background:#fff; }
         .result-card .value{ font-size:1.1rem; font-weight:800; }
         .result-grid{ display:grid; gap:.6rem; grid-template-columns:1fr 1fr; }
+        @media (max-width: 575.98px){ .result-grid{ grid-template-columns:1fr; } }
 
         .num-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem .75rem; }
         .num-grid .f .form-label{ font-size:.75rem; margin-bottom:.15rem; }
         .num-grid .f .form-control{ padding:.3rem .5rem; font-size:.85rem; }
+        @media (max-width: 575.98px){ .num-grid{ grid-template-columns:1fr; } }
 
-        .chart-card{ border:1px solid #e8f0ff; border-radius:.8rem; background:#fff; box-shadow:0 6px 16px rgba(2,6,23,.06); padding:.75rem; }
+        /* Donut card: harus selalu “muat” dalam lebar kartu */
+        .chart-card{ border:1px solid #e8f0ff; border-radius:.8rem; background:#fff; box-shadow:0 6px 16px rgba(2,6,23,.06); padding:.75rem; overflow:visible; width:100%; }
         .chart-card.compact{ max-width:var(--chart-max); }
-        .donut-wrap{ width:100%; aspect-ratio:1/1; position:relative }
-        .donut-wrap canvas{ width:100%!important; height:100%!important; display:block }
+        @media (max-width: 991.98px){
+          .chart-card.compact{ max-width:100% !important; margin-left:auto; margin-right:auto; }
+        }
+        .donut-wrap{ width:100%; max-width:100%; aspect-ratio:1/1; position:relative; }
+        .donut-wrap canvas{ width:100%!important; height:100%!important; display:block; }
+        @media (max-width: 575.98px){ .chart-card{ padding:.75rem .9rem; } }
 
-        .table-wrap{ border:1px solid #eef1f6; border-radius:.8rem; background:#fff }
+        /* Table container */
+        .table-wrap{ border:1px solid #eef1f6; border-radius:.8rem; background:#fff; width:100%; }
         .table-wrap thead th{
           position:sticky; top:0; z-index:2; background:#f7f9ff;
           border-bottom:1px solid #e8ecfb!important; color:#3b4271;
@@ -90,10 +102,18 @@
         }
         .table-sm td,.table-sm th{ padding:.45rem .6rem; font-size:var(--fs-s) }
         .table-wrap tbody tr:hover{ background:#f9fbff; cursor:pointer }
-        @media (max-width:991.98px){ .table-wrap{ overflow:auto; } .table-wrap table{ min-width:780px; } }
+        @media (max-width:991.98px){
+          .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
+          .table-wrap table{ min-width:780px; }
+        }
 
         .chip{ display:inline-block; padding:.25rem .55rem; border-radius:999px; font-weight:700;
                background:#f7f9ff; border:1px solid #e8eefc; color:#1f2937; font-size:var(--fs-xs) }
+
+        /* Tipografi sedikit dikompakkan di HP kecil */
+        @media (max-width: 575.98px){
+          .lab-scope{ --fs-s:.85rem; --fs-xs:.78rem; }
+        }
       </style>
 
       <div class="soft mb-3">
@@ -274,7 +294,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
       plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:10, font:{size:12} } } } }
   });
 
-  // Realtime compute
+  // Resize agar donut selalu muat (fit) dalam kartu
+  const ro = new ResizeObserver(() => { try{ donut.resize(); }catch(e){} });
+  ro.observe(document.querySelector('.chart-card') || document.getElementById('donut'));
+  window.addEventListener('orientationchange', () => {
+    setTimeout(()=> { try{ donut.resize(); }catch(e){} }, 150);
+  });
+  window.addEventListener('resize', () => { try{ donut.resize(); }catch(e){} });
+
+  // ===== Realtime compute =====
   const ids=['A','B','C','D','sampleName'];
   const get=id=>parseFloat(document.getElementById(id).value)||0;
   const elMc=$('#mcVal'), elAsh=$('#ashVal'), elVm=$('#vmVal'), elFc=$('#fcVal');
@@ -326,23 +354,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const C = document.getElementById('C').value || '0';
       const D = document.getElementById('D').value || '0';
 
-      // Wajib nama sampel
       if (!name){
         if (window.Swal){
-          await Swal.fire({
-            icon: 'warning',
-            title: 'Nama sampel wajib diisi',
-            text: 'Mohon isi Nama Sampel terlebih dahulu.',
-            confirmButtonText: 'Mengerti'
-          });
-        }else{
-          alert('Nama sampel wajib diisi');
-        }
+          await Swal.fire({ icon:'warning', title:'Nama sampel wajib diisi', text:'Mohon isi Nama Sampel terlebih dahulu.', confirmButtonText:'Mengerti' });
+        }else{ alert('Nama sampel wajib diisi'); }
         document.getElementById('sampleName').focus();
         return;
       }
 
-      // Konfirmasi
       if (window.Swal){
         const res = await Swal.fire({
           title: 'Yakin ingin menambahkan data?',
