@@ -310,8 +310,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function recompute(){
     const A=get('A'), B=get('B'), C=get('C'), D=get('D');
     const mc=(A>0)?((A-B)/A)*100:0;
-    const ash=(B>0)?(C/B)*100:0;
-    const vm=(B>0)?((B-D)/B)*100:0;
+    const vm=(B>0)?(C/B)*100:0;
+    const ash=(B>0)?((B-D)/B)*100:0;
     let fc=100-(mc+ash+vm); if(!isFinite(fc)) fc=0;
 
     elMc.textContent=nf2(mc)+'%';
