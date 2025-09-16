@@ -42,9 +42,9 @@ class LabTestController extends Controller
 
         // Perhitungan (aman terhadap pembagian 0)
         $mc  = $A > 0 ? (($A - $B) / $A) * 100 : 0;
-        $ash = $B > 0 ? ($C / $B) * 100 : 0;
-        $vm  = $B > 0 ? (($B - $D) / $B) * 100 : 0;
-        $fc  = 100 - ($mc + $ash + $vm);
+        $ash = $B > 0 ? ($D / $B) * 100 : 0;
+        $vm  = $B > 0 ? (($B - $C) / $B) * 100 : 0;
+        $fc  = 100 - $mc - $ash - $vm;
 
         // Normalisasi
         $mc  = round(max($mc, 0), 2);
