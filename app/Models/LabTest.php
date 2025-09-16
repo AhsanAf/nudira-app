@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class LabTest extends Model
 {
-    protected $fillable = [
-        'tanggal', 'sample_name',
-        'a','b','c','d',
-        'mc_pct','ash_pct','vm_pct','fc_pct'
-    ];
+// app/Models/LabTest.php
+// app/Models/LabTest.php
+protected $fillable = [
+  'tanggal','sample_name','a','b','c','d','mc_pct','vm_pct','ash_pct','fc_pct',
+];
+
+
 
     protected $casts = [
         'tanggal' => 'date',
