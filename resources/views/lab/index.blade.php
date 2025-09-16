@@ -1,4 +1,3 @@
-{{-- resources/views/production/lab/index.blade.php --}}
 @extends('layouts.app')
 @section('content_title','Production • Data Uji Lab')
 
@@ -7,7 +6,7 @@
   <div class="py-4 py-md-5">
     <div class="container page-compact">
 
-      {{-- Header gradient (rounded) --}}
+      {{-- Header --}}
       <div class="app-section-header d-flex align-items-center justify-content-between px-4 py-3 mb-3">
         <div class="d-flex align-items-center gap-2 text-white">
           <i class="bi bi-bezier2"></i>
@@ -20,100 +19,38 @@
 
       {{-- Styles --}}
       <style>
-        .lab-scope{
-          --c1:#5fa8ff; --c2:#64d1dc; --c3:#72e0b6;
-          --panel:#fff; --panel2:#f7f9ff;
-          --radius:.9rem; --shadow:0 10px 26px rgba(2,6,23,.08);
-          --chart-col: 380px;   /* kolom donut saat desktop */
-          --chart-max: 360px;   /* batas kartu donut saat desktop */
-          --fs-s: .875rem;      /* 14px */
-          --fs-xs: .8rem;       /* 13px */
-        }
-        /* Samakan “napas” dengan header + cegah overflow */
-        .page-compact{ max-width: 1180px; }
-        .lab-scope, .page-compact { width:100%; max-width:100%; }
-        .lab-scope * { box-sizing:border-box; min-width:0; } /* anti dorong lebar */
-
-        .app-section-header{
-          background: linear-gradient(90deg, #5fa8ff 0%, #64d1dc 50%, #72e0b6 100%);
-          color:#fff; border-radius: 1.5rem;
-        }
-        .cardx{ background:var(--panel); border:0; border-radius:var(--radius); box-shadow:var(--shadow); width:100%; }
-        .soft{ background:var(--panel2); border-radius:.6rem; padding:.5rem .7rem; font-weight:700; color:#374151; font-size:var(--fs-s); width:100%; }
-
-        /* GRID:
-           | input input |
-           | chart table | */
-        .grid-lab{
-          display:grid; gap:1rem; align-items:start;
-          grid-template-columns: var(--chart-col) 1fr;
-          grid-template-rows: auto auto;
-          grid-template-areas:
-            "input input"
-            "chart table";
-          width:100%;
-        }
-        .area-input { grid-area: input; min-width:0; }
-        .area-chart { grid-area: chart; min-width:0; }
-        .area-table { grid-area: table; min-width:0; }
-        @media (max-width: 991.98px){
-          .grid-lab{
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto auto;
-            grid-template-areas: "input" "chart" "table";
-          }
-        }
-
-        .form-label{ font-size:var(--fs-xs); margin-bottom:.25rem }
-        .form-text{ font-size:var(--fs-xs) }
-        .form-control{ padding:.38rem .55rem; font-size:var(--fs-s); min-width:0; }
-        .btn{ font-size:var(--fs-s) }
-
-        /* kiri (field) – kanan (hasil) */
-        .split{ display:grid; gap:.8rem; grid-template-columns: minmax(0, 320px) 1fr; width:100%; }
-        @media (max-width:1199.98px){ .split{ grid-template-columns:1fr; } }
-
-        .result-card{ border:1px solid #eef2ff; border-radius:.7rem; padding:.6rem .7rem; background:#fff; }
-        .result-card .value{ font-size:1.1rem; font-weight:800; }
-        .result-grid{ display:grid; gap:.6rem; grid-template-columns:1fr 1fr; }
-        @media (max-width: 575.98px){ .result-grid{ grid-template-columns:1fr; } }
-
-        .num-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem .75rem; }
-        .num-grid .f .form-label{ font-size:.75rem; margin-bottom:.15rem; }
-        .num-grid .f .form-control{ padding:.3rem .5rem; font-size:.85rem; }
-        @media (max-width: 575.98px){ .num-grid{ grid-template-columns:1fr; } }
-
-        /* Donut card: harus selalu “muat” dalam lebar kartu */
-        .chart-card{ border:1px solid #e8f0ff; border-radius:.8rem; background:#fff; box-shadow:0 6px 16px rgba(2,6,23,.06); padding:.75rem; overflow:visible; width:100%; }
-        .chart-card.compact{ max-width:var(--chart-max); }
-        @media (max-width: 991.98px){
-          .chart-card.compact{ max-width:100% !important; margin-left:auto; margin-right:auto; }
-        }
-        .donut-wrap{ width:100%; max-width:100%; aspect-ratio:1/1; position:relative; }
-        .donut-wrap canvas{ width:100%!important; height:100%!important; display:block; }
-        @media (max-width: 575.98px){ .chart-card{ padding:.75rem .9rem; } }
-
-        /* Table container */
-        .table-wrap{ border:1px solid #eef1f6; border-radius:.8rem; background:#fff; width:100%; }
-        .table-wrap thead th{
-          position:sticky; top:0; z-index:2; background:#f7f9ff;
-          border-bottom:1px solid #e8ecfb!important; color:#3b4271;
-          font-weight:800!important; text-transform:uppercase; letter-spacing:.3px; font-size:.78rem
-        }
+        .lab-scope{ --panel:#fff; --panel2:#f7f9ff; --radius:.9rem; --shadow:0 10px 26px rgba(2,6,23,.08);
+          --chart-col:380px; --chart-max:360px; --fs-s:.875rem; --fs-xs:.8rem; }
+        .page-compact{ max-width:1180px }
+        .lab-scope *{ box-sizing:border-box; min-width:0 }
+        .app-section-header{ background:linear-gradient(90deg,#5fa8ff 0%,#64d1dc 50%,#72e0b6 100%); color:#fff; border-radius:1.5rem }
+        .cardx{ background:var(--panel); border:0; border-radius:var(--radius); box-shadow:var(--shadow) }
+        .soft{ background:var(--panel2); border-radius:.6rem; padding:.5rem .7rem; font-weight:700; color:#374151; font-size:var(--fs-s) }
+        .grid-lab{ display:grid; gap:1rem; align-items:start; grid-template-columns: var(--chart-col) 1fr; grid-template-areas:"input input" "chart table" }
+        .area-input{ grid-area:input } .area-chart{ grid-area:chart } .area-table{ grid-area:table }
+        @media (max-width:991.98px){ .grid-lab{ grid-template-columns:1fr; grid-template-areas:"input" "chart" "table" } }
+        .form-label{ font-size:var(--fs-xs); margin-bottom:.25rem } .form-text{ font-size:var(--fs-xs) }
+        .form-control{ padding:.38rem .55rem; font-size:var(--fs-s) } .btn{ font-size:var(--fs-s) }
+        .split{ display:grid; gap:.8rem; grid-template-columns:minmax(0,320px) 1fr }
+        @media (max-width:1199.98px){ .split{ grid-template-columns:1fr } }
+        .result-card{ border:1px solid #eef2ff; border-radius:.7rem; padding:.6rem .7rem; background:#fff }
+        .result-card .value{ font-size:1.1rem; font-weight:800 }
+        .result-grid{ display:grid; gap:.6rem; grid-template-columns:1fr 1fr }
+        @media (max-width:575.98px){ .result-grid{ grid-template-columns:1fr } }
+        .num-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem .75rem }
+        .num-grid .f .form-label{ font-size:.75rem; margin-bottom:.15rem }
+        .num-grid .f .form-control{ padding:.3rem .5rem; font-size:.85rem }
+        @media (max-width:575.98px){ .num-grid{ grid-template-columns:1fr } }
+        .chart-card{ border:1px solid #e8f0ff; border-radius:.8rem; background:#fff; box-shadow:0 6px 16px rgba(2,6,23,.06); padding:.75rem; overflow:visible }
+        .chart-card.compact{ max-width:var(--chart-max) }
+        .donut-wrap{ width:100%; aspect-ratio:1/1; position:relative } .donut-wrap canvas{ width:100%!important; height:100%!important }
+        .table-wrap{ border:1px solid #eef1f6; border-radius:.8rem; background:#fff }
+        .table-wrap thead th{ position:sticky; top:0; z-index:2; background:#f7f9ff; border-bottom:1px solid #e8ecfb!important; color:#3b4271; font-weight:800!important; text-transform:uppercase; letter-spacing:.3px; font-size:.78rem }
         .table-sm td,.table-sm th{ padding:.45rem .6rem; font-size:var(--fs-s) }
         .table-wrap tbody tr:hover{ background:#f9fbff; cursor:pointer }
-        @media (max-width:991.98px){
-          .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
-          .table-wrap table{ min-width:780px; }
-        }
-
-        .chip{ display:inline-block; padding:.25rem .55rem; border-radius:999px; font-weight:700;
-               background:#f7f9ff; border:1px solid #e8eefc; color:#1f2937; font-size:var(--fs-xs) }
-
-        /* Tipografi sedikit dikompakkan di HP kecil */
-        @media (max-width: 575.98px){
-          .lab-scope{ --fs-s:.85rem; --fs-xs:.78rem; }
-        }
+        @media (max-width:991.98px){ .table-wrap{ overflow-x:auto } .table-wrap table{ min-width:780px } }
+        .chip{ display:inline-block; padding:.25rem .55rem; border-radius:999px; font-weight:700; background:#f7f9ff; border:1px solid #e8eefc; color:#1f2937; font-size:var(--fs-xs) }
+        .alert-compact{ padding:.35rem .55rem; font-size:.8rem; margin-top:.3rem }
       </style>
 
       <div class="soft mb-3">
@@ -144,23 +81,29 @@
                     <div class="f">
                       <label class="form-label">A</label>
                       <input type="number" step="0.0001" class="form-control" id="A" name="a" placeholder="0" required>
-                      <div class="form-text">berat awal (g)</div>
+                      <div class="form-text">awal (g)</div>
                     </div>
                     <div class="f">
                       <label class="form-label">B</label>
                       <input type="number" step="0.0001" class="form-control" id="B" name="b" placeholder="0" required>
-                      <div class="form-text">kering (g)</div>
+                      <div class="form-text">105°C / kering (g)</div>
                     </div>
                     <div class="f">
                       <label class="form-label">C</label>
                       <input type="number" step="0.0001" class="form-control" id="C" name="c" placeholder="0" required>
-                      <div class="form-text">abu (g)</div>
+                      <div class="form-text">950°C — <b>coke+ash</b> (setelah VM) (g)</div>
                     </div>
                     <div class="f">
                       <label class="form-label">D</label>
                       <input type="number" step="0.0001" class="form-control" id="D" name="d" placeholder="0" required>
-                      <div class="form-text">setelah VM (g)</div>
+                      <div class="form-text">750°C — <b>ash</b> (g)</div>
                     </div>
+                  </div>
+
+                  {{-- Warning bila C < D + tombol Tukar (karena seharusnya coke+ash ≥ ash) --}}
+                  <div id="cdWarn" class="alert alert-warning alert-compact d-none" role="alert">
+                    Nilai <b>C (coke+ash 950°C)</b> seharusnya ≥ <b>D (ash 750°C)</b>. Sepertinya tertukar.
+                    <button type="button" class="btn btn-sm btn-outline-warning ms-2" id="swapCD">Tukar C↔D</button>
                   </div>
 
                   <div class="d-grid mt-2">
@@ -271,13 +214,10 @@
 </div>
 
 @php
-  $donutData = $donut ?? [
-    'labels' => ['Moisture','Ash','Volatile','Fixed C'],
-    'data'   => [0,0,0,100],
-  ];
+  $donutData = $donut ?? ['labels'=>['Moisture','Ash','Volatile','Fixed C'],'data'=>[0,0,0,100]];
 @endphp
 
-@push('scripts')
+{{-- Script INLINE agar pasti ter-load --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -294,101 +234,66 @@ document.addEventListener('DOMContentLoaded', ()=>{
       plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:10, font:{size:12} } } } }
   });
 
-  // Resize agar donut selalu muat (fit) dalam kartu
-  const ro = new ResizeObserver(() => { try{ donut.resize(); }catch(e){} });
-  ro.observe(document.querySelector('.chart-card') || document.getElementById('donut'));
-  window.addEventListener('orientationchange', () => {
-    setTimeout(()=> { try{ donut.resize(); }catch(e){} }, 150);
-  });
-  window.addEventListener('resize', () => { try{ donut.resize(); }catch(e){} });
-
-  // ===== Realtime compute =====
   const ids=['A','B','C','D','sampleName'];
   const get=id=>parseFloat(document.getElementById(id).value)||0;
   const elMc=$('#mcVal'), elAsh=$('#ashVal'), elVm=$('#vmVal'), elFc=$('#fcVal');
+  const warn = $('#cdWarn'); const swapBtn = $('#swapCD');
 
   function recompute(){
     const A=get('A'), B=get('B'), C=get('C'), D=get('D');
-    const mc=(A>0)?((A-B)/A)*100:0;
-    const vm=(B>0)?(C/B)*100:0;
-    const ash=(B>0)?((B-D)/B)*100:0;
-    let fc=100-(mc+ash+vm); if(!isFinite(fc)) fc=0;
 
-    elMc.textContent=nf2(mc)+'%';
-    elAsh.textContent=nf2(ash)+'%';
-    elVm.textContent=nf2(vm)+'%';
-    elFc.textContent=nf2(fc)+'%';
+    // SESUAI ASTM (A awal, B 105°C, C 950°C coke+ash, D 750°C ash)
+    const mc  = (A>0)?((A-B)/A)*100:0;
+    const vm  = (B>0)?((B-C)/B)*100:0;
+    const ash = (B>0)?( D / B )*100:0;
+    let fc    = 100 - (mc + vm + ash); // by difference biar total 100
 
-    sampleTitle.textContent=document.getElementById('sampleName').value||'-';
+    const r = x => +(isFinite(x)? Math.round(Math.max(0,x)*100)/100 : 0);
+    const mc2=r(mc), vm2=r(vm), ash2=r(ash);
+    const fc2=r(100 - (mc2 + vm2 + ash2));
 
-    donut.data.datasets[0].data=[
-      Math.max(mc,0), Math.max(ash,0), Math.max(vm,0), Math.max(fc,0)
-    ];
+    elMc.textContent = nf2(mc2)+'%';
+    elVm.textContent = nf2(vm2)+'%';
+    elAsh.textContent= nf2(ash2)+'%';
+    elFc.textContent = nf2(fc2)+'%';
+
+    sampleTitle.textContent=(document.getElementById('sampleName').value||'-').trim()||'-';
+    donut.data.datasets[0].data=[mc2, ash2, vm2, fc2];
     donut.update('none');
-  }
-  ids.forEach(id=>document.getElementById(id)?.addEventListener('input',recompute));
-  recompute();
 
-  // Klik row => set donut
+    // Warning jika C < D (harusnya coke+ash ≥ ash)
+    if(warn){ warn.classList.toggle('d-none', !(C>0 && D>0 && C < D)); }
+  }
+
+  ids.forEach(id=>document.getElementById(id)?.addEventListener('input',recompute));
+  $('#swapCD')?.addEventListener('click', ()=>{
+    const c = document.getElementById('C'), d = document.getElementById('D');
+    [c.value, d.value] = [d.value, c.value];
+    recompute();
+  });
+
+  // Klik baris tabel => tampilkan di donut
   document.querySelectorAll('#tb tr[data-mc]').forEach(tr=>{
     tr.addEventListener('click', ()=>{
       const mc=parseFloat(tr.dataset.mc)||0;
       const ash=parseFloat(tr.dataset.ash)||0;
       const vm=parseFloat(tr.dataset.vm)||0;
-      const fc=parseFloat(tr.dataset.fc)||0;
+      let fc=parseFloat(tr.dataset.fc); if(!isFinite(fc)) fc=Math.max(0,100-(mc+ash+vm));
       donut.data.datasets[0].data=[Math.max(mc,0),Math.max(ash,0),Math.max(vm,0),Math.max(fc,0)];
       donut.update();
       sampleTitle.textContent=tr.dataset.name||'-';
     });
   });
 
-  // SweetAlert: VALIDASI nama & konfirmasi submit
-  const form = document.getElementById('labForm');
-  if(form){
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
+  recompute();
 
-      const name = (document.getElementById('sampleName').value || '').trim();
-      const A = document.getElementById('A').value || '0';
-      const B = document.getElementById('B').value || '0';
-      const C = document.getElementById('C').value || '0';
-      const D = document.getElementById('D').value || '0';
-
-      if (!name){
-        if (window.Swal){
-          await Swal.fire({ icon:'warning', title:'Nama sampel wajib diisi', text:'Mohon isi Nama Sampel terlebih dahulu.', confirmButtonText:'Mengerti' });
-        }else{ alert('Nama sampel wajib diisi'); }
-        document.getElementById('sampleName').focus();
-        return;
-      }
-
-      if (window.Swal){
-        const res = await Swal.fire({
-          title: 'Yakin ingin menambahkan data?',
-          html: `
-            <div class="text-start">
-              Nama Sampel: <b>${name}</b><br>
-              A: <b>${A}</b> &nbsp; B: <b>${B}</b><br>
-              C: <b>${C}</b> &nbsp; D: <b>${D}</b>
-            </div>
-          `,
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonText: 'Ya, simpan',
-          cancelButtonText: 'Batal',
-          reverseButtons: true,
-          focusCancel: true
-        });
-        if(!res.isConfirmed) return;
-      }
-      form.submit();
-    });
-  }
+  // Resize guard
+  const ro = new ResizeObserver(() => { try{ donut.resize(); }catch(e){} });
+  ro.observe(document.querySelector('.chart-card'));
 
   if (window.__labSaved && window.Swal){
     Swal.fire({icon:'success', title:'Berhasil', text:window.__labSaved, timer:1400, showConfirmButton:false});
   }
 });
 </script>
-@endpush
 @endsection
